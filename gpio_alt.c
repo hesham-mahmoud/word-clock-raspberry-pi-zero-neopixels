@@ -18,8 +18,18 @@ and Gnu getopt() example <http://www.gnu.org/software/libc/manual/html_node/Exam
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#define BCM2708_PERI_BASE        0x20000000
-#define GPIO_BASE                (BCM2708_PERI_BASE + 0x200000) /* GPIO controller */
+// #define RPI_ZERO
+#define RPI_THREE
+
+#if defined(RPI_ZERO)
+ #define BCM2708_PERI_BASE        0x20000000
+ #define BCM_PERI_BASE            BCM2708_PERI_BASE
+#elif defined(RPI_THREE)
+ #define BCM283x_PERI_BASE        0x3F000000
+ #define BCM_PERI_BASE            BCM283x_PERI_BASE
+#endif
+#define GPIO_BASE                (BCM_PERI_BASE + 0x200000) /* GPIO controller */
+
 #define PAGE_SIZE (4*1024)
 #define BLOCK_SIZE (4*1024)
 
